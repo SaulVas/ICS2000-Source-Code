@@ -8,7 +8,7 @@ For our project, we were given three DJI Mini 3 drones, which have advanced capa
 
 Ensuring effective pathfinding and route optimization to cover large areas thoroughly and as quickly as possible is a critical component of our project. For this, we used genetic algorithms and k-means clustering. By using these AI techniques, it is possible to ensure that the surveying process is carried out as effectively as possible.
 
-The majority of search and rescue operations depend heavily on object detection, which is the subject of the second portion of our project. The system's ability to correctly identify cars from aerial imagery is the goal here. To do this, we trained the YOLOv5m model on a public online dataset [1].
+The majority of search and rescue operations depend heavily on object detection, which is the subject of the second portion of our project. The system's ability to correctly identify cars from aerial imagery is the goal here. To do this, we trained the YOLOv5m model on a public online dataset.
 
 ## Source Code Structure
 
@@ -27,6 +27,10 @@ pip install -r requirements.txt
 ```
 
 ## Proof of concept
+
+At its core, our goal was to have 3 drones survey a large quadratic area, using various AI techniques to generate the optimal routes to do so. Then the drones would take photos at optimal picture points, detecting any cars in the images taken and relaying the coordinates of where a car was detected back to home base.
+
+Since we don't actually have a physical prototype that flies the drones in real life, we opted for 2 methods to simulate and show a proof of concept for our project.
 
 1. A demonstration of our object detection model on real-life images taken using the drones supplied. These images would contain different types of cars, different backgrounds, and the cars placed in different positions in the frame. This can be run by running *WorkingProject/obj/detect.py* from within the *obj* directory.
 2. Creating a visual simulation of three drones surveying a 1000m by 1000m grid. All the values used in the simulation are based on the specs listed on DJI's website. The visual simulation can be viewed by running *WorkingProject/route_nav/Simulation.py* from within the *route_nav* directory.

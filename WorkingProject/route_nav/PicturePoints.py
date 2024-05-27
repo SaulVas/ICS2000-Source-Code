@@ -14,8 +14,8 @@ def ILP_picture_points_problem(partition):
         for j in range(partition[1], partition[3]):
             covered_by = []
             # Include cells within 4 cells distance in each direction
-            for di in range(-3, 4):  # Range from -4 to 4
-                for dj in range(-4, 5):  # Range from -4 to 4
+            for di in range(-3, 4):  # horizontal fov of dji mini 3
+                for dj in range(-4, 5):  # vertical fov of dji mini 3
                     if (i + di, j + dj) in points:
                         covered_by.append(points[(i + di, j + dj)])
 

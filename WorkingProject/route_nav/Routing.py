@@ -27,7 +27,7 @@ def find_optimal_route(coordinates, population_size=100, generations=400, cxpb=0
     - best_route: The best route found as a list of coordinates.
     - best_distance: The total distance of the best route.
     """
-    
+
     def distance(point1, point2):
         return np.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
 

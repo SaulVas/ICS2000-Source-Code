@@ -172,13 +172,13 @@ This section of the project can be split into 3 subparts/stages:
 2. Clustering Picture points
 3. Finding the optimum route through each cluster.
 
-![Pathfinding Section](../route_nav/results/combined_plot.png)
+![Pathfinding Section](../WorkingProject/route_nav/results/combined_plot.png)
 
 #### Picture Points Coordinates
 
 The stage tackles the problem of selecting optimal points on a grid to take pictures such that every cell on the grid is covered by at least one picture point. The solution utilizes an Integer Linear Programming (ILP) approach to minimize the number of picture points required to cover the entire grid.
 
-![Generated Picture Points](../route_nav/results/picture_points.png)
+![Generated Picture Points](../WorkingProject/route_nav/results/picture_points.png)
 
 The code used to solve this problem can be found in _route_nav/PicturePoints.py_ and is as follows:
 
@@ -244,7 +244,7 @@ Our code solves this problem through the following steps:
 
 Once we have a list of picture point coordinates we use K-Means clustering to group the picture points into 3 distinct groups. Each cluster will be assigned to a drone, like this we make sure that the drones are all efficiently working and surveying the area simulateously, while also minimizing risks of drone collisions since each of the drones will be working in its own distinct area.
 
-![Clustered Picture Points](../route_nav/results/clusters.png)
+![Clustered Picture Points](../WorkingProject/route_nav/results/clusters.png)
 
 The code used to cluster these points can be found in _route_nav/Routing.py_ and is shown below:
 
@@ -265,7 +265,7 @@ The final step is to visit each picture point of a cluster minimizing the total 
 
 In the context of minimizing the total travel distance among a list of coordinates, a GA can efficiently search for a near-optimal solution to the TSP.
 
-![Optimal Routes of Each Cluster](../route_nav/results/optimal_routes.png)
+![Optimal Routes of Each Cluster](../WorkingProject/route_nav/results/optimal_routes.png)
 
 the code for this algorithm can be found in _route_nav/Routing.py_ and is shown below:
 
@@ -973,22 +973,22 @@ A balance of 0.03 indicates a high degree of imbalance, meaning that some cluste
 
 These can also be viewed visually in the cluster plot below:
 
-![Cluster plot](../route_nav/results/clusters.png)
+![Cluster plot](../WorkingProject/route_nav/results/clusters.png)
 
 #### Genetic Algroithm
 
 - Cluster 1
   - Compute Time -> 2.70 seconds
   - Best Distance -> 6057.40m
-    ![Cluster 1 Convergence Plot](../route_nav/results/GA_convergence_0.png)
+    ![Cluster 1 Convergence Plot](../WorkingProject/route_nav/results/GA_convergence_0.png)
 - Cluster 2
   - Compute Time -> 2.87 seconds
   - Best Distance -> 7479.50m
-    ![Cluster 2 Convergence Plot](../route_nav/results/GA_convergence_1.png)
+    ![Cluster 2 Convergence Plot](../WorkingProject/route_nav/results/GA_convergence_1.png)
 - Cluster 3
   - Compute Time -> 2.64 seconds
   - Best Distance -> 6144.8m
-    ![Cluster 3 Convergence Plot](../route_nav/results/GA_convergence_2.png)
+    ![Cluster 3 Convergence Plot](../WorkingProject/route_nav/results/GA_convergence_2.png)
 
 From the above results we observe that using a genetic algorithm for this problem was indeed an effective solution.
 
@@ -1000,7 +1000,7 @@ From the above results we observe that using a genetic algorithm for this proble
 - Min time -> 424.00 seconds
 - Max time -> 1702.00 seconds
 
-![Simulation Results Plot](../route_nav/results/boxplot_simulation_times.png)
+![Simulation Results Plot](../WorkingProject/route_nav/results/boxplot_simulation_times.png)
 
 #### Object Detection
 

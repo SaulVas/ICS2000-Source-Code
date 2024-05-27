@@ -17,10 +17,6 @@ The Source Code directory contains 2 directories:
 1. MSDKSample3 -> Contains our failed implementation of an Android app, however, it is an empty project that has the mobile SDK integrated with it.
 2. WorkingProject -> Contains our Python project implementing various AI techniques, simulations and evaluations.
 
-The Source Code Directory is accessible from the following GitHub Repo:
-
-https://github.com/SaulVas/ICS2000-Source-Code
-
 ## Packages and Requirements
 
 To run any code within the working project Directory one must follow the steps outlined below:

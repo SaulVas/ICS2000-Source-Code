@@ -12,11 +12,10 @@ def update_plot(frame, drones, car_positions, detected_cars, detected_positions,
     drone_positions = [drone.get_position() for drone in drones]
     scat_drones.set_offsets(drone_positions)
 
-    # Optionally update car positions if dynamic
     scat_cars.set_offsets(car_positions)
 
     for drone in drones:
-        drone.update_position(car_positions, detected_positions, detected_cars)  # Assuming car_positions are handled inside the method
+        drone.update_position(car_positions, detected_positions, detected_cars)
         print(f"Drone at {drone.get_position()} with battery {drone.battery_life}")
 
     # Update scatter plots for detected cars and detection positions
@@ -94,5 +93,4 @@ if __name__ == "__main__":
     detected_car_positions = []
     detected_positions = []
 
-    # Run the simulation for a set number of 'frames' (each frame simulates one second)
     simulate_drones_visual(drones, car_positions, detected_car_positions, detected_positions, width, height)

@@ -202,7 +202,7 @@ if __name__ == "__main__":
     # sim testing
     drones = [Drone(home_pos, route) for route in routes]
     simulation_times = []
-    for index in range(10000):  # Reduced number of iterations for testing
+    for index in range(10000):
         car_positions = [(random.uniform(0, width), random.uniform(0, height)) for _ in range(num_cars)]
         detected_car_positions = []
         detected_positions = []
@@ -223,7 +223,6 @@ if __name__ == "__main__":
     print(f"Min time: {min_time:.2f} seconds")
     print(f"Max time: {max_time:.2f} seconds")
 
-<<<<<<< HEAD
     print(f"\nILP Picture Points Problem Results:")
     print(f"Coverage Percentage: {results['coverage_percentage']:.2f}%")
     print(f"Redundancy Percentage: {results['redundancy_percentage']:.2f}%")
@@ -239,9 +238,6 @@ if __name__ == "__main__":
     for idx, result in enumerate(GA_results):
         print(f"Cluster {idx} - Best Distance: {result['best_distance']:.2f} - Time Taken: {result['total_time']:.2f} seconds")
 
-
-=======
->>>>>>> 2da8624b5e795815bba53593acbd4bfd1c7ebf14
     # Plotting boxplot
     plt.figure(figsize=(10, 6))
     plt.boxplot(simulation_times, vert=False, patch_artist=True, 

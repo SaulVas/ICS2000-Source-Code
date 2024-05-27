@@ -1,0 +1,17 @@
+activating venv:
+- create venv
+cd yolov5
+python -m venv name-of-your-venv
+source name-of-your-venv/bin/activate
+pip install -r requirements.txt
+
+train dataset: 
+cd yolov5
+python train.py --img 640 --batch 16 --epochs 100 --data dataset/data.yaml --cfg models/yolov5m.yaml --weights yolov5m.pt --name car_detection_drone
+
+test dataset:
+python val.py --data dataset/data.yaml --weights runs/train/car_detection_drone/weights/best.pt --img 640
+
+detect_cars from new_images:
+- upload to new_images
+python detect.py --weights runs/train/car_detection_drone/weights/best.pt --img 640 --conf 0.25 --source ../new_images

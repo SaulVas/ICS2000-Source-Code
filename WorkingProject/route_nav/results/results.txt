@@ -1,0 +1,22 @@
+simulation results:
+Mean time: 1275.95 seconds
+Median time: 1276.00 seconds
+Standard Deviation: 226.14 seconds
+Min time: 424.00 seconds
+Max time: 1702.00 seconds
+
+ILP Picture Points Problem Results:
+Total Coverage: 100.00%
+Redundancy/Overlap: 17.87%
+Compute Time: 8.08 seconds
+
+Clustering Results:
+Silhouette Score: 0.36
+Davies-Boulin index: 0.88
+Balance: 0.03
+Compute Time: 0.24 seconds
+
+Genetic Algorithm Results:
+Cluster 0 - Best Distance: 592.49 - Time Taken: 2.40 seconds
+Cluster 1 - Best Distance: 430.96 - Time Taken: 1.88 seconds
+Cluster 2 - Best Distance: 427.84 - Time Taken: 2.09 seconds

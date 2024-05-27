@@ -1,0 +1,22 @@
+apply from:rootProject.file('dependencies.gradle')
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://api.mapbox.com/downloads/v2/releases/maven" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.0'
+        // Ensure the Kotlin plugin is also included if using Kotlin
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.21'
+    }
+}
+
+allprojects {
+
+}
+
+tasks.register('clean', Delete) {
+    delete rootProject.buildDir
+}

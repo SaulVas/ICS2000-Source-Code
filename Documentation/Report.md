@@ -1007,15 +1007,15 @@ From the above results we observe that using a genetic algorithm for this proble
 #### Object Detection
 
 - Confusion Matrix
-  ![Obj Det Confusion Matrix](/obj/yolov5/runs/val/exp2/confusion_matrix.png)
+  ![Obj Det Confusion Matrix](../WorkingProject/obj/yolov5/runs/val/exp2/confusion_matrix.png)
 - Precision: 0.882
-  ![Precision Curve](/obj/yolov5/runs/val/exp2/P_curve.png)
+  ![Precision Curve](../WorkingProject/obj/yolov5/runs/val/exp2/P_curve.png)
 - Recall: 0.923
-  ![Recall Curve](/obj/yolov5/runs/val/exp2/R_curve.png)
+  ![Recall Curve](../WorkingProject/obj/yolov5/runs/val/exp2/R_curve.png)
 - F1-Score: 0.902
-  ![F1 Curve](/obj/yolov5/runs/val/exp2/F1_curve.png)
+  ![F1 Curve](../WorkingProject/obj/yolov5/runs/val/exp2/F1_curve.png)
 - Precision Recall Curve
-  ![PR Curve](/obj/yolov5/runs/val/exp2/PR_curve.png)
+  ![PR Curve](../WorkingProject/obj/yolov5/runs/val/exp2/PR_curve.png)
 - mAP@50: 0.933
 - mAP@50-95: 0.672
 

@@ -6,6 +6,8 @@ Saul Vassallo (88812L) and Nick Gaerty (413403L)
 
 UAV - Unmanned Aerial Vehicle (Drones)
 
+R-CNN - Region-Based Convolutional Neural Network (Object Detection)
+
 ## Introduction
 
 Our project specifically focuses on utilizing three UAVs for efficient and effective search and rescue missions. The primary objective is to interface with these drones to survey extensive areas and identify stationary objects, simulating a scenario where UAVs can locate and identify stranded vehicles in the aftermath of natural disasters or accidents. For our proof of concept, we selected cars as the stationary objects of interest.
@@ -91,7 +93,7 @@ As stated in the introduction, our project is split into 3 main sections, pathfi
 
 The DJI Mini 3 drones facilitate communication and customisation through the DJI Mobile SDK [15]. The mobile SDK can be leveraged through either android studio or xcode to build a mobile application that interfaces with the drones. For our project we opted for an android application, we made this choice since developing an IOS app required both developers to have macbooks which was not the case.
 
-DJI provide free sample code and documentation explaining how to integrate the sample project into an android app using android studio, however, when following the steps outlined in the tutorial the code fails to compile and build. This is most likely due to the sample code using various deprecated packages and being created to run on an outdated version of android studio.
+DJI provide free sample code and documentation explaining how to integrate the sample project into an android app using android studio, however, when following the steps outlined in the tutorial, the code fails to compile and build. This is most likely due to the sample code using various deprecated packages and being created to run on an outdated version of android studio.
 
 DJI also provide tutorials of how to integrate the mobile sdk into an empty project and build the android app from scratch. Similar to the other tutorial, this DJI tutorial also produced many errors and needed various tweaks in order to compile. After many hours of debugging and removing deprecated packages we were able to develop an empty application that would compile, however, when uploaded to an android device the application repeatedly crashed without explanation.
 
@@ -103,7 +105,7 @@ At it's core, our goal was to have 3 drones survey a large quadratic area, using
 
 Since we don't actually have a physical prototype that flies the drones in real life, we opted for 2 methods to simulate and show a proof of concept for our project.
 
-1. A demonstration of our object detection model on real life images taken using the the drones suppplied. These images would contain different types of cars, different backgrounds, and having the cars placed in different positions of the frame.
+1. A demonstration of our object detection model on real life images taken using the the drones supplied. These images would contain different types of cars, different backgrounds, and having the cars placed in different positions of the frame.
 2. Creating a visual simulation of three drones surveying a 1000m by 1000m grid. All the values used in the simulation are based off of the specs listed on DJI's website [16].
 
 With these 2 demonstrations we are able to show the effectiveness of our pathfinding and route optimization algorithms, aswell as the performance of our object detection algorithm.
@@ -124,7 +126,7 @@ https://github.com/SaulVas/ICS2000-Source-Code
 The working project directory contains the following elements:
 
 1. requirements.txt -> A text file containing the required packages to be installed in order to run our project in a venv.
-2. obj -> A directory containing the yolov5 model, the data set used to train it, and any other files or images relevant to the object detection section of our project.
+2. obj -> A directory containing the yolov5 model, the dataset used to train it, and any other files or images relevant to the object detection section of our project.
 3. route_nav -> A directory containing the files related to generating optimal paths, simulating drone flight, and testing the various algorithms implemented.
 
 ## Design Implementation
@@ -133,7 +135,7 @@ The working project directory contains the following elements:
 
 #### Training
 
-As stated previously and discussed in detail in the _AI Techniques_ section, our object detection model is Yolov5m trained on a public dataset. Doing this was pretty simple, first, Yolov5 was downloaded from their public GitHub [17], next the public data set was downloaded in '_yolov5-pytorch_' format. The downloaded dataset, consisting of _train_, _test_ and _validate_ directories aswell as a _data.yaml_ file, was placed inside the directory _obj/yolov5/dataset_.
+As stated previously and discussed in detail in the _AI Techniques_ section, our object detection model is Yolov5m trained on a public dataset. Doing this was pretty simple, first, Yolov5 was downloaded from their public GitHub [17], next the public dataset was downloaded in '_yolov5-pytorch_' format. The downloaded dataset, consisting of _train_, _test_ and _validate_ directories aswell as a _data.yaml_ file, was placed inside the directory _obj/yolov5/dataset_.
 
 Next, the _data.yaml_ file was edited as follows:
 
@@ -234,7 +236,7 @@ Our code solves this problem through the following steps:
 3. Defining the Objective
    - The objective function is to minimize the sum of the binary decision variables, effectively minimizing the number of picture points.
 4. Defining the Constraints:
-   - For each cell (i, j) in the partition, the function ensures that there is at least one picture point within a distance of 3 cells in in the x direction and 4 cells in the y direction. (inclusive).
+   - For each cell (i, j) in the partition, the function ensures that there is at least one picture point within a distance of 3 cells in the x direction and 4 cells in the y direction. (inclusive).
    - 3 and 4 were used since we discovered that at an altitude of 35m we have the greatest balance of detection accuracy and field of view. Through experimentation we discovered that the width and height of the FOV at this altitude were 30m and 40m respectively.
    - For our simulation we are dividing all values by 10, and we also opted to assume that the drones detect a slightly smaller area. Although this introduces a bit of redundancy, we discovered that the object detection algorithm is slightly worse when the car is positioned at the very edge of the frame. This precautionary step should minimize that.
 5. Solving the Problem
@@ -242,7 +244,7 @@ Our code solves this problem through the following steps:
 
 #### Clustering of Picture Points
 
-Once we have a list of picture point coordinates we use K-Means clustering to group the picture points into 3 distinct groups. Each cluster will be assigned to a drone, like this we make sure that the drones are all efficiently working and surveying the area simulateously, while also minimizing risks of drone collisions since each of the drones will be working in its own distinct area.
+Once we have a list of picture point coordinates, we use K-Means clustering to group the picture points into 3 distinct groups. Each cluster will be assigned to a drone. Like this we make sure that the drones are all efficiently working and surveying the area simultaneously, while also minimizing risks of drone collisions since each of the drones will be working in its own distinct area.
 
 ![Clustered Picture Points](../WorkingProject/route_nav/results/clusters.png)
 
@@ -261,13 +263,13 @@ The labels of each point are generated by making using of the K-Means algorithm 
 
 #### Optimal Route of each Cluster
 
-The final step is to visit each picture point of a cluster minimizing the total route travelled, this is a classic instance of a TSP (Traveling Salesman Problem). In order to solve this version of the TSP we opted to use a genetic algorithm. The parameters of our genetic algorithm and how it works are discussed in detail later in the AI techniques section.
+The final step is to visit each picture point of a cluster, minimizing the total route travelled. This is a classic instance of a TSP (Traveling Salesman Problem). In order to solve this version of the TSP we opted to use a genetic algorithm. The parameters of our genetic algorithm and how it works are discussed in detail later in the AI techniques section.
 
 In the context of minimizing the total travel distance among a list of coordinates, a GA can efficiently search for a near-optimal solution to the TSP.
 
 ![Optimal Routes of Each Cluster](../WorkingProject/route_nav/results/optimal_routes.png)
 
-the code for this algorithm can be found in _route_nav/Routing.py_ and is shown below:
+The code for this algorithm can be found in _route_nav/Routing.py_ and is shown below:
 
 ```python
 def find_optimal_route(coordinates, population_size=100, generations=400, cxpb=0.7, mutpb=0.2, seed=42):
@@ -534,11 +536,11 @@ if __name__ == "__main__":
 
 The simulation, works as follows:
 
-1. Generate optimum routes for each drone using the seps outlined previously.
+1. Generate optimum routes for each drone using the steps outlined previously.
 2. 10 cars are placed at random positions throughout the grid.
 3. Make the 3 drones take off and start the simulation.
 4. Update the position of each drone every second by calculating its new position using vectors based on the next picture point and the drones speed.
-5. Check that the drone has enough battery to continue surveying the area. If the drone doesnt have enough fuel to return to home, land and still have a little left over as a safety margin, it will stop following its route and return to home. After refuelling it continues along it's original route.
+5. Check that the drone has enough battery to continue surveying the area. If the drone doesnt have enough fuel to return to home, land and still have a little left over as a safety margin, it will stop following its route and return to home. After refuelling, it continues along it's original route.
 6. At each picture point the drone simulates taking a picture and running it through the object detection algorithm.
 7. Once all the cars have been found the simulation stops.
 
@@ -620,7 +622,7 @@ The genetic algorithm in our project:
 2. Iteratively improved the routes through selection, crossover, and mutation processes.
 3. Converged on an optimal or near-optimal route for each UAV within its cluster.
 
-For the genetic algorithm, a population size of 100 was used, to allow for a diverse set of potential solutions. The crossover probability was set to 0.7, which allows for effective exploration of new routes. As for the mutation probability, 0.2 was used and the number of generations was set to 400.
+For the genetic algorithm, a population size of 100 was used to allow for a diverse set of potential solutions. The crossover probability was set to 0.7, which allows for effective exploration of new routes. As for the mutation probability, 0.2 was used and the number of generations was set to 400.
 
 The use of a genetic algorithm ensures that each UAV took an acceptably optimal route through its designated cluster, which reduced both travel time and energy usage. Using the principles of evolution, the algorithm explored many potential paths and improved them over a series of generations.
 
@@ -953,7 +955,7 @@ Below are the results for each metric discussed in the preious section:
 - Redundancy/Overlap -> 17.87%
 - Compute Time -> 8.08 seconds
 
-These results are acceptable. 100% total coverage was required in order to dtate we surveyed the whole area, while a redundacy of 18% of the area is quite high but a necessary trade off for better computation time and better object detection recall.
+These results are acceptable. 100% total coverage was required in order to state we surveyed the whole area, while a redundacy of 18% of the area is quite high but a necessary trade off for better computation time and better object detection recall.
 
 #### K-Means Clustering of Picture Points
 
@@ -1046,7 +1048,7 @@ As can be seen in the above images, the model performs decently at an altitude o
 
 Our project successfully demonstrated the use of autonomous drone systems for area surveillance and monitoring, focusing on search and rescue missions. By leveraging three DJI Mini 3 drones, we implemented advanced AI techniques for pathfinding, route optimization, and object detection to locate stationary vehicles in large areas. The integration of genetic algorithms and k-means clustering ensured efficient coverage and minimized the overall surveying time.
 
-This project shows a proof of concept for drone-based surveillance and monitoring. Future expansions could include extending the object detection capabilities to identify and track moving objects using algorithms like Deep SORT and other tracking techniques, enhancing the system's ability to follow and monitor dynamic targets, improving its applicability in real-time scenarios.  
+This project shows a proof of concept for drone-based surveillance and monitoring. Future expansions could include extending the object detection capabilities to identify and track moving objects using algorithms like Deep SORT and other tracking techniques, enhancing the system's ability to follow and monitor dynamic targets and improving its applicability in real-time scenarios.  
 The project can also be expanded by setting up a realtime interface using the mobile SDK if DJI mini 3 are the drone of choice, or alternatively changing drones and using the simpler Windows SDK.  
 Finally, the last improvement we suggest is to train the object detection model to detect more than just cars from aerial images.
 
